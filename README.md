@@ -1,1 +1,2 @@
-# rasa-appointment-booking
+# appointment-schedular
+ 

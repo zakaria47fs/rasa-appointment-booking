@@ -1,0 +1,165 @@
+version: '3.1'
+
+
+intents:
+- affirm
+- book_appointment
+- cancel_appointment
+- deny
+- goodbye
+- greet
+- inform
+- suggestion_feedback
+- view_appointment
+- view_office_hours
+- view_promotions
+- view_services
+
+
+entities:
+- service
+- app_date
+- app_time
+- name
+- suggestion
+- service_id
+
+
+slots: 
+  service_id:
+    type: text
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: book_appointment_form
+        requested_slot: service_id
+  
+  suggestion:
+    type: text
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: suggestion_form
+        requested_slot: suggestion
+  
+  service:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: service
+  
+  app_date:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: app_date
+  
+  app_time:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: app_time
+  
+  name:
+    type: text
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: suggestion_form
+      - active_loop: book_appointment_form
+        requested_slot: name
+  
+  cancelled_appointment:
+    type: text
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: cancel_appointment_form
+        requested_slot: cancelled_appointment
+
+
+forms:
+  book_appointment_form:
+    required_slots:
+    - service
+    - app_date
+    - app_time
+    - name
+  
+  suggestion_form:
+    required_slots:
+    - suggestion
+    - name
+  
+  cancel_appointment_form:
+    required_slots:
+    - cancelled_appointment
+
+
+responses:
+  utter_greet:
+  - text: Hey! How are you?
+  
+  utter_goodbye:
+  - text: goodbye!
+  
+  utter_submit:
+  - text: Do you want to Submit
+  
+  utter_ask_suggestion:
+  - text: What is your suggestion ?
+  
+  utter_anything_else:
+  - text: Any thing else?
+  
+  utter_suggestion_slots:
+  - text: your suggestin is  {suggestion}
+  
+  utter_ask_service:
+  - text: what service you want to book ?
+  
+  utter_ask_name:
+  - text: what is you name ?
+  
+  utter_ask_app_date:
+  - text: what is the date you want to book on ? (allowed date format dd/mm/yyyy or dd-mm-yyyy and must be lees than one week from today's date)
+  
+  utter_ask_app_time:
+  - text: what is the time you want to book at ? (allowed time formate 13:00)
+  
+  utter_cancel_slots:
+  - text: You'r going to cancel appointment id = {cancelled_appointment}
+  
+  utter_ask_cancelled_appointment:
+  - text: choose appointment id to cancel
+  
+  utter_book_appointment_slots:
+  - text: You'r going to book an appointment for {service} on {app_date} at {app_time} 
+  
+  utter_booked_appointment:
+  - text: your appointment has been scheduled
+  
+  utter_cancelation_submitted:
+  - text: your appointment has been cancelled
+  
+  utter_suggestion_submitted:
+  - text : your suggestion has been submitted
+
+
+actions:
+- action_book_appointment
+- action_cancel_appointment
+- action_reset_slot
+- action_submit_booking
+- action_submit_canceling
+- action_submit_suggestion
+- action_view_appointment
+- action_view_office_hours
+- action_view_promotions
+- action_view_services
+- utter_anything_else
+- validate_book_appointment_form
+- validate_cancel_appointment_form
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

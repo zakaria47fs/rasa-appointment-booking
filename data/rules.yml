@@ -1,0 +1,112 @@
+version: "3.1"
+
+
+rules:
+- rule: welcome user
+  conversation_start: true  # this rule only applies at the beginning of a conversation
+  steps:
+    - intent: greet
+    - action: utter_greet
+
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+#-------------------------------------------------------------
+
+- rule: View services
+  steps:
+  - intent: view_services
+  - action: action_view_services
+  - action: utter_anything_else
+
+
+- rule: View Appointment
+  steps:
+  - intent: view_appointment
+  - action: action_view_appointment
+  - action: utter_anything_else
+
+
+- rule: View promotions
+  steps:
+  - intent: view_promotions
+  - action: action_view_promotions
+  - action: utter_anything_else
+
+
+- rule: View office hours 
+  steps:
+  - intent: view_office_hours
+  - action: action_view_office_hours
+  - action: utter_anything_else
+
+
+- rule: Activate book_appointment_form
+  steps:
+  - intent: book_appointment
+  - action: book_appointment_form
+  - active_loop: book_appointment_form
+
+- rule: Submit book_appointment_form
+  condition:
+  - active_loop: book_appointment_form
+  steps:
+  - action: book_appointment_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action : utter_book_appointment_slots
+  - action : utter_submit
+  - intent: affirm
+  - action: action_book_appointment
+  - action: utter_booked_appointment
+  - action: action_reset_slot
+  - action: utter_anything_else
+
+
+- rule: Activate suggestion_form
+  steps:
+  - intent: suggestion_feedback
+  - action: suggestion_form
+  - active_loop: suggestion_form
+
+- rule: Submit suggestion_form
+  condition:
+  - active_loop: suggestion_form
+  steps:
+  - action: suggestion_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_suggestion_slots
+  - action : utter_submit
+  - intent: affirm
+  - action: action_submit_suggestion
+  - action : action_reset_slot
+  - action: utter_suggestion_submitted
+  - action: utter_anything_else
+
+
+- rule: Activate cancel_appointment_form
+  steps:
+  - intent: cancel_appointment
+  - action: action_view_appointment
+  - action: cancel_appointment_form
+  - active_loop: cancel_appointment_form
+
+- rule: Submit cancel_appointment_form
+  condition:
+  - active_loop: cancel_appointment_form
+  steps:
+  - action: cancel_appointment_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: affirm
+  - action: action_cancel_appointment
+  - action: utter_cancelation_submitted
+  - action: action_reset_slot
+  - action: utter_anything_else

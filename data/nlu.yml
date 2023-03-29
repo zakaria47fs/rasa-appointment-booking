@@ -1,0 +1,124 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+
+- intent: inform
+  examples: |
+    - [skin treatments](service) on [monday](app_date) at [10:00 PM](app_time)
+    - [service 1](service) on [11/10](app_date)
+    - [service 4](service) on [11-10](app_date)
+    - [service 5](service)
+    - [monday](app_date)
+    - [10:00 PM](app_time)
+    - [1:15 PM](app_time)
+    - [4:1 AM](app_time)
+    - [14](cancelled_appointment)
+
+- intent: book_appointment
+  examples: |
+    - i want to have [service 1](service) on [monday](app_date) at [10:00 PM](app_time)
+    - i want to book an appointment
+    - i want to make an appointment
+    - i want to have an appointment
+    - can i schedule an appointment
+    - can i arrange an appointment
+    - can i set up an apponintment
+    - can i have a rendezvous
+
+- intent: cancel_appointment
+  examples: |
+    - i want to cancel an appointment
+    - i want to cancel my appointment
+    - i want to annul my appointment
+    - can i revoke my appointment
+    - i want to delete my appointment
+    - can i call off my rendezvous
+    - can i remove my appointment
+    - i want to drop my appointment
+
+- intent: view_appointment
+  examples: |
+    - i want to view my appointment
+    - i want to see my appointment
+    - i want to check my appointment
+    - i want to check out my appointment
+    - show me my appointment
+    - i want to know my appointment
+    - can you show me my appointment
+
+- intent: suggestion_feedback
+  examples: |
+    - can i give a feedback
+    - i have a suggestion
+    - i have a recommendation
+    - can i recommend something
+    - i have a proposition
+    - can i give an advice
+    - i want to give a feedback
+    - i have a suggestion for you
+    - i want to give a suggestion
+
+- intent: view_services
+  examples: |
+    - i want to view you services
+    - what is you services
+    - i want to know your services
+    - what do you do
+    - what is the services you offer
+
+- intent: view_office_hours
+  examples: |
+    - what is tour office houres
+    - can i get your information
+
+- intent: view_promotions
+  examples: |
+    - i want to know the promotions
+    - what are your promotions
+    - is there any promotions
